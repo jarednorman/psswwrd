@@ -18,11 +18,22 @@ hands[1] = [fingers[4], fingers[5], fingers[6]]
 password = ""
 
 hand = 0
+# make sure we don't use the same finger on one hand twice in a row
+last_finger = [3, 3] 
+
 while password.length != ARGV[0].to_i do
-  finger = hands[hand][Random.rand(hands[hand].length)]
-  character = finger[Random.rand(finger.length)]
-  if Random.rand(10) < 3 then character.upcase! end #maybe some uppercase characters
+  # Grab a finger that we didn't use on this hand last time
+  finger = Random.rand(hands[hand].length)
+  while finger == last_finger[hand] do
+    finger = Random.rand(hands[hand].length)
+  end
+  
+  character = hands[hand][finger][Random.rand(hands[hand][finger].length)]
+
+  if Random.rand(10) < 2 then character.upcase! end #maybe some uppercase characters
+
   password << character
+
   hand = hand^1 #switch hands
 end
 
