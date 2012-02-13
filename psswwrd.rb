@@ -27,6 +27,7 @@ while password.length != ARGV[0].to_i do
   while finger == last_finger[hand] do
     finger = Random.rand(hands[hand].length)
   end
+  last_finger[hand] = finger
   
   character = hands[hand][finger][Random.rand(hands[hand][finger].length)]
 
